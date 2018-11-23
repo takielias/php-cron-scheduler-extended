@@ -1,6 +1,5 @@
 <?php namespace GO\Traits;
 
-use DateTime;
 use Cron\CronExpression;
 use InvalidArgumentException;
 
@@ -9,7 +8,7 @@ trait Interval
     /**
      * Set the Job execution time.
      *
-     * @param  string  $expression
+     * @param  string $expression
      * @return self
      */
     public function at($expression)
@@ -17,23 +16,6 @@ trait Interval
         $this->executionTime = CronExpression::factory($expression);
 
         return $this;
-    }
-
-    /**
-     * Run the Job at a specific date.
-     *
-     * @param  string/DateTime  $date
-     * @return self
-     */
-    public function date($date)
-    {
-        if (! $date instanceof DateTime) {
-            $date = new DateTime($date);
-        }
-
-        $this->executionYear = $date->format('Y');
-
-        return $this->at("{$date->format('i')} {$date->format('H')} {$date->format('d')} {$date->format('m')} *");
     }
 
     /**
@@ -45,7 +27,6 @@ trait Interval
     {
         return $this->at('* * * * *');
     }
-
 
     /**
      * Set the execution time to every 5 minute.
@@ -60,7 +41,7 @@ trait Interval
     /**
      * Set the execution time to every hour.
      *
-     * @param  int|string  $minute
+     * @param  int|string $minute
      * @return self
      */
     public function hourly($minute = 0)
@@ -73,8 +54,8 @@ trait Interval
     /**
      * Set the execution time to once a day.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function daily($hour = 0, $minute = 0)
@@ -90,12 +71,26 @@ trait Interval
         return $this->at("{$c['minute']} {$c['hour']} * * *");
     }
 
+
+    /**
+     * Set the execution time to twice a day.
+     *
+     * @param  int|string $hour
+     * @param  int|string $minute
+     * @return self
+     */
+
+    public function TwicePerDay()
+    {
+        return $this->at('0 0,12 * * *');
+    }
+
     /**
      * Set the execution time to once a week.
      *
-     * @param  int|string  $weekday
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $weekday
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function weekly($weekday = 0, $hour = 0, $minute = 0)
@@ -114,10 +109,10 @@ trait Interval
     /**
      * Set the execution time to once a month.
      *
-     * @param  int|string  $month
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $month
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function monthly($month = '*', $day = 1, $hour = 0, $minute = 0)
@@ -136,8 +131,8 @@ trait Interval
     /**
      * Set the execution time to every Sunday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function sunday($hour = 0, $minute = 0)
@@ -148,8 +143,8 @@ trait Interval
     /**
      * Set the execution time to every Monday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function monday($hour = 0, $minute = 0)
@@ -160,8 +155,8 @@ trait Interval
     /**
      * Set the execution time to every Tuesday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function tuesday($hour = 0, $minute = 0)
@@ -172,8 +167,8 @@ trait Interval
     /**
      * Set the execution time to every Wednesday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function wednesday($hour = 0, $minute = 0)
@@ -184,8 +179,8 @@ trait Interval
     /**
      * Set the execution time to every Thursday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function thursday($hour = 0, $minute = 0)
@@ -196,8 +191,8 @@ trait Interval
     /**
      * Set the execution time to every Friday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function friday($hour = 0, $minute = 0)
@@ -208,8 +203,8 @@ trait Interval
     /**
      * Set the execution time to every Saturday.
      *
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function saturday($hour = 0, $minute = 0)
@@ -220,9 +215,9 @@ trait Interval
     /**
      * Set the execution time to every January.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function january($day = 1, $hour = 0, $minute = 0)
@@ -233,9 +228,9 @@ trait Interval
     /**
      * Set the execution time to every February.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function february($day = 1, $hour = 0, $minute = 0)
@@ -246,9 +241,9 @@ trait Interval
     /**
      * Set the execution time to every March.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function march($day = 1, $hour = 0, $minute = 0)
@@ -259,9 +254,9 @@ trait Interval
     /**
      * Set the execution time to every April.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function april($day = 1, $hour = 0, $minute = 0)
@@ -272,9 +267,9 @@ trait Interval
     /**
      * Set the execution time to every May.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function may($day = 1, $hour = 0, $minute = 0)
@@ -285,9 +280,9 @@ trait Interval
     /**
      * Set the execution time to every June.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function june($day = 1, $hour = 0, $minute = 0)
@@ -298,9 +293,9 @@ trait Interval
     /**
      * Set the execution time to every July.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function july($day = 1, $hour = 0, $minute = 0)
@@ -311,9 +306,9 @@ trait Interval
     /**
      * Set the execution time to every August.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function august($day = 1, $hour = 0, $minute = 0)
@@ -324,9 +319,9 @@ trait Interval
     /**
      * Set the execution time to every September.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function september($day = 1, $hour = 0, $minute = 0)
@@ -337,9 +332,9 @@ trait Interval
     /**
      * Set the execution time to every October.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function october($day = 1, $hour = 0, $minute = 0)
@@ -350,9 +345,9 @@ trait Interval
     /**
      * Set the execution time to every November.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function november($day = 1, $hour = 0, $minute = 0)
@@ -363,9 +358,9 @@ trait Interval
     /**
      * Set the execution time to every December.
      *
-     * @param  int|string  $day
-     * @param  int|string  $hour
-     * @param  int|string  $minute
+     * @param  int|string $day
+     * @param  int|string $hour
+     * @param  int|string $minute
      * @return self
      */
     public function december($day = 1, $hour = 0, $minute = 0)
@@ -376,11 +371,11 @@ trait Interval
     /**
      * Validate sequence of cron expression.
      *
-     * @param  int|string  $minute
-     * @param  int|string  $hour
-     * @param  int|string  $day
-     * @param  int|string  $month
-     * @param  int|string  $weekday
+     * @param  int|string $minute
+     * @param  int|string $hour
+     * @param  int|string $day
+     * @param  int|string $month
+     * @param  int|string $weekday
      * @return array
      */
     private function validateCronSequence($minute = null, $hour = null, $day = null, $month = null, $weekday = null)
@@ -397,9 +392,9 @@ trait Interval
     /**
      * Validate sequence of cron expression.
      *
-     * @param  int|string  $value
-     * @param  int         $min
-     * @param  int         $max
+     * @param  int|string $value
+     * @param  int $min
+     * @param  int $max
      * @return mixed
      */
     private function validateCronRange($value, $min, $max)
@@ -408,8 +403,8 @@ trait Interval
             return '*';
         }
 
-        if (! is_numeric($value) ||
-            ! ($value >= $min && $value <= $max)
+        if (!is_numeric($value) ||
+            !($value >= $min && $value <= $max)
         ) {
             throw new InvalidArgumentException(
                 "Invalid value: it should be '*' or between {$min} and {$max}."
